@@ -1,0 +1,32 @@
+version: '3.9'
+networks:
+  postgres-network:
+    driver: bridge
+services:
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        env_file:
+            - config.env
+        command: python3 app.py
+        networks:
+            - postgres-network
+    postgres:
+        container_name: postgresql
+        image: postgres
+        environment:
+            - POSTGRES_USER=docker
+            - POSTGRES_PASSWORD=docker
+            - APP_DB_USER=userx
+            - APP_DB_PASS=passw
+            - APP_DB_NAME=appdb
+        volumes:
+            - ./db:/docker-entrypoint-initdb.d/
+        ports:
+            - 5432:5432
+        networks:
+            - postgres-network
+        restart: unless-stopped
