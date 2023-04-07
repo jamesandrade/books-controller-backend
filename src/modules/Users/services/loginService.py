@@ -24,7 +24,6 @@ class LoginService():
             "user_id": user.id,
             "username": user.username,
             "level": user.level,
-            "tenant_id": user.tenant_id
         }
         access_token = create_access_token(identity=user.id,
                                            additional_claims=payload,

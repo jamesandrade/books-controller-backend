@@ -13,8 +13,6 @@ class User(db.Model):
     password = db.Column(db.String(250), unique=False, nullable=False)
     level = db.Column(db.Integer, unique=False, nullable=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
-    tenant_id = db.Column(UUID(as_uuid=True), db.ForeignKey('tenant.id'), nullable=True)
-
     def __repr__(self):
         return '<User %r>' % self.username
 

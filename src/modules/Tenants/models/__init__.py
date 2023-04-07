@@ -1,1 +1,0 @@
-from src.modules.Tenants.models import Tenant

@@ -6,7 +6,7 @@
   <!-- <a href="https://api_2.netlify.app">Demo</a> -->
 </div>
 
-<h1 align="center">API FOR TENANTS AND USERS</h1>
+<h1 align="center">API FOR BOOKS CONTROLLER</h1>
 
 <p align="center">
 </p>
@@ -27,7 +27,7 @@
 
 ## :dart: About ##
 
-API FOR TENANTS AND USERS USING PYTHON, POSTGRES AND DOCKER COMPOSE
+API BOOKS-CONTROLLER APP, POSTGRES AND DOCKER COMPOSE
 
 ## :rocket: Technologies ##
 

@@ -3,7 +3,6 @@ from __main__ import app
 from flask import request, jsonify
 from flask_jwt_extended import jwt_required
 
-from src.infra.jwt.level_user import level_user
 from src.modules.Users.controllers import users_controller, login_controller
 
 ROUTE = "/users"
@@ -13,7 +12,6 @@ def create_user():
 
 @app.route(ROUTE+"/<user_id>", methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
-@level_user()
 def users(user_id):
     if request.method == 'GET':
         return users_controller.read(user_id)

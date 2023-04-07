@@ -1,0 +1,1 @@
+from src.modules.Loans.models import Loan
