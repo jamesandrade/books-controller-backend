@@ -8,7 +8,7 @@ class ShowLoansService():
         loans = Loan.query.all()
         loans_list = []
         for loan in loans:
-            loans_list.append(loan.as_dict()) 
+            loans_list.append(loan.as_dict())
         return loans_list
 
 showLoansService = ShowLoansService()

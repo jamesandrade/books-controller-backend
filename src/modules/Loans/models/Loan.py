@@ -11,7 +11,8 @@ class Loan(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student = db.Column(UUID(as_uuid=True), db.ForeignKey('student.id'), nullable=False)
     book = db.Column(UUID(as_uuid=True), db.ForeignKey('book.id'), nullable=False)
-    loan = db.Column(db.Date, nullable=False, default=datetime.utcnow().date())
+    loan = db.Column(db.Date, nullable=False, default=datetime.utcnow().date)
+    reason_devolution = db.Column(db.Integer(), unique=False, nullable=True)
     returned_at = db.Column(db.Date, nullable=True)
     returned = db.Column(db.Boolean, default=False, nullable=False)
 
