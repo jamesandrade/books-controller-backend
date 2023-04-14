@@ -14,3 +14,9 @@ def students():
         return students_controller.create(user_id=user_id, obj=request.json)
     elif request.method == 'GET':
         return students_controller.read()
+
+@app.route(f"{ROUTE}/<ra>", methods=['GET'])
+def specific_student(ra):
+    if request.method == 'GET':
+        return students_controller.readOne(ra=ra)
+

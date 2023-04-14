@@ -1,5 +1,7 @@
 from src.modules.Students.services.createStudentService import createStudentService
 from src.modules.Students.services.showStudentsService import showStudentsService
+from src.modules.Students.services.showOneStudentService import showOneStudentService
+
 from flask import jsonify
 from src.utils.formValidator import FormValidator
 from src.infra.errors.app_error import AppError
@@ -18,3 +20,6 @@ def create(user_id, obj):
     return createStudentService.execute(obj)
 def read():
     return jsonify(showStudentsService.execute())
+
+def readOne(ra):
+    return showOneStudentService.execute(ra)

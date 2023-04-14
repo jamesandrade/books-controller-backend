@@ -11,7 +11,7 @@ class ShowBooksService():
         for book in books:
             newBook = book.as_dict()
             newBook["is_loaned"] = Loan.book_is_loaned(newBook["id"])
-            books_list.append(newBook) 
+            books_list.append(newBook)
         return books_list
 
 showBooksService = ShowBooksService()
