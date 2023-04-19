@@ -6,7 +6,8 @@ from flask import jsonify
 from src.utils.formValidator import FormValidator
 from src.infra.errors.app_error import AppError
 
-def create(obj):
+def create(user_id, obj):
+    obj["user_id"] = user_id
     isValid = FormValidator.isValid(
         'student',
         'book',
@@ -20,7 +21,8 @@ def create(obj):
 def read():
     return showLoansService.execute()
 
-def update(obj):
+def update(user_id, obj):
+    obj["user_id"] = user_id
     isValid = FormValidator.isValid(
         'id',
         data=obj

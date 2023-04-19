@@ -8,6 +8,8 @@ from app import db
 class CreateLoanService():
     def execute(self, data):
         try:
+            data['created_by'] = data["user_id"]
+            data.pop('user_id')
             newLoan = Loan(**data)
             db.session.add(newLoan)
             db.session.commit()

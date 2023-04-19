@@ -15,8 +15,11 @@ def students():
     elif request.method == 'GET':
         return students_controller.read()
 
-@app.route(f"{ROUTE}/<ra>", methods=['GET'])
+@app.route(f"{ROUTE}/<ra>", methods=['GET', 'PUT'])
+@jwt_required()
 def specific_student(ra):
     if request.method == 'GET':
         return students_controller.readOne(ra=ra)
-
+    elif request.method == 'PUT':
+        user_id = get_jwt_identity()
+        return students_controller.update(ra=ra, user_id=user_id, obj=request.json)

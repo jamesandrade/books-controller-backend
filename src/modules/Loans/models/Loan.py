@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from datetime import datetime
+import pytz
 from src.infra.database.models import db
 from src.modules.Students.models.Student import Student
 from src.modules.Books.models.Book import Book
@@ -15,6 +16,10 @@ class Loan(db.Model):
     reason_devolution = db.Column(db.Integer(), unique=False, nullable=True)
     returned_at = db.Column(db.Date, nullable=True)
     returned = db.Column(db.Boolean, default=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(pytz.timezone('America/Sao_Paulo')), nullable=False)
+    updated_at = db.Column(db.DateTime , nullable=True)
+    created_by = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'), nullable=False)
+    updated_by = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
         return '<id %r>' % self.id

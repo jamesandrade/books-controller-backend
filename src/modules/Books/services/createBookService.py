@@ -8,6 +8,8 @@ from app import db
 class CreateBookService():
     def execute(self, data):
         try:
+            data['created_by'] = data["user_id"]
+            data.pop("user_id")
             newBook = Book(**data)
             db.session.add(newBook)
             db.session.commit()
