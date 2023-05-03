@@ -3,10 +3,38 @@ networks:
   postgres-network:
     driver: bridge
 services:
+    postgresql:
+        container_name: postgresql
+        image: postgres
+        environment:
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "postgres"
+            POSTGRES_DB: "userapp"
+        volumes:
+            - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+            - ./data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: '2G'
+        networks:
+            - postgres-network
+        restart: always
     web:
         build: .
+        container_name: web
+        depends_on:
+            - postgresql
         ports:
             - "5000:5000"
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: '1G'
         volumes:
             - .:/code
         env_file:
@@ -14,19 +42,19 @@ services:
         command: python3 app.py
         networks:
             - postgres-network
-    postgres:
-        container_name: postgresql
-        image: postgres
+        restart: always
+    pgadmin4:
+        image: dpage/pgadmin4
+        depends_on:
+          - postgresql
         environment:
-            - POSTGRES_USER=docker
-            - POSTGRES_PASSWORD=docker
-            - APP_DB_USER=userx
-            - APP_DB_PASS=passw
-            - APP_DB_NAME=appdb
+            PGADMIN_DEFAULT_USER: admin
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+            PGADMIN_CONFIG_SERVER_MODE: 'False'
         volumes:
-            - ./db:/docker-entrypoint-initdb.d/
-        ports:
-            - 5432:5432
+          - ./pgadmin:/var/lib/pgadmin
         networks:
-            - postgres-network
-        restart: unless-stopped
+          - postgres-network
+        ports:
+          - "5433:80"
